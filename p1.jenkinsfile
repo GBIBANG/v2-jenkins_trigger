@@ -1,0 +1,24 @@
+pipeline {
+    agent any
+    
+    triggers {
+        // Déclenche le build chaque fois qu'un commit est poussé dans le référentiel Git
+        pollSCM('* * * * *')
+    }
+
+    stages {
+        stage('Checkout') {
+            steps {
+                // Étape pour récupérer le code source depuis le référentiel Git
+                checkout scm
+            }
+        }
+    }
+
+    post {
+        always {
+            // Ajoutez des étapes qui doivent être exécutées après chaque build
+            cleanWs()
+        }
+    }
+}
